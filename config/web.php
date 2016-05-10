@@ -44,7 +44,7 @@ $config = [
         
         'urlManager' => [
 			/*'enableStrictParsing' => true,*/
-            'enablePrettyUrl' => true,
+			/*'enablePrettyUrl' => true,*/ // dissable prettyUrl so that js redirect will work
             'showScriptName' => false,
             'rules' => [
 				['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
