@@ -9,6 +9,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\EntryForm;
+use app\models\Product;
+use app\models\ProductSearch;
 
 class SiteController extends Controller
 {
@@ -47,56 +49,35 @@ class SiteController extends Controller
             ],
         ];
     }
-
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
-
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
-
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
 	
-	public function actionSay($message = 'Hello')
-	{
-		return $this->render('say', ['message' => $message]);
+	/* CUSTOMIZATION: setup action to do site page routing */
+	public function actionIndex() {
+		$searchModel = new ProductSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		
+		return $this->render('index', []);
 	}
+	
+	public function actionStep1() {
+		$searchModel = new ProductSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		
+		return $this->render('step1', [
+			'searchModel' => $searchModel,
+			'dataProvider' => $dataProvider
+		]);
+	}
+	
+	public function actionStep2($id, $quantity = 1) {
+		$searchModel = new ProductSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		
+		return $this->render('step2', [
+			'id' => $id,
+			'quantity' => $quantity,
+		]);
+	}
+	/* CUSTOMIZATION: end */
 	
 	public function actionEntry()
     {
