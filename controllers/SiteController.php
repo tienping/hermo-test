@@ -80,6 +80,21 @@ class SiteController extends Controller
 			'dataProvider' => $dataProvider
 		]);
 	}
+	
+	public function actionStep3($id, $quantity = 1, $shippingArea, $promoCode ="") {
+		$searchModel = new ProductSearch();
+		$searchModel->id = $id;
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		
+		return $this->render('step3', [
+			'id' => $id,
+			'quantity' => $quantity,
+			'shippingArea' => $shippingArea,
+			'promoCode' => $promoCode,
+			'searchModel' => $searchModel,
+			'dataProvider' => $dataProvider
+		]);
+	}
 	/* CUSTOMIZATION: end */
 	
 	public function actionEntry()

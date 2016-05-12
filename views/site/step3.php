@@ -5,15 +5,15 @@ use yii\helpers\Html;
 use kartik\widgets\Select2;
 use yii\helpers\Url;
 
-$this->title = 'Step 2';
+$this->title = 'Step 3';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-index">
 
 	<div class="">
-		<p class="lead">Simple Shopping App - Step 2</p>
+		<p class="lead">Simple Shopping App - Step 3</p>
 	</div>
-
+	<!--
 	<div class="body-content">
 		<div class="row checkout-listing">
 			<?php foreach ($dataProvider->models as $model): ?>
@@ -76,7 +76,6 @@ $this->params['breadcrumbs'][] = $this->title;
 				<script>
 					var shippingSelect = document.querySelector(".shipment-destination-select");
 					var shippingFeeAmount = document.querySelector(".checkout-shipping-fee-amount");
-					var totalPriceAmount = document.querySelector(".checkout-total-price-amount");
 					
 					if (shippingSelect && shippingFeeAmount) {
 						var changingShippingArea = function() {
@@ -84,21 +83,21 @@ $this->params['breadcrumbs'][] = $this->title;
 							if (shippingDestOpt && shippingDestOpt.value) {
 								var shippingDestValue = shippingDestOpt.value;
 								var quantity = <?php echo $quantity ?>;
-								var totalPriceBeforeShipmentFee = <?php echo number_format((float)($model->selling_price * $quantity), 2, '.', '') ?>;
-								var shipmentFee = "";
+								var totalPrice = <?php echo number_format((float)($model->selling_price * $quantity), 2, '.', '') ?>;
+								
 								switch(shippingDestOpt.value) {
 									case "Country":
 										shippingFeeAmount.innerHTML = "(Pending ship area)";
 										alert("Please choose a destination.");
 										break;
 									case "Malaysia":
-										shipmentFee = (quantity >= 2 || totalPriceBeforeShipmentFee >= 150) ? 0 : 10;
+										shippingFeeAmount.innerHTML = (quantity >= 2 || totalPrice >= 150) ? "FREE" : "RM 10";
 										break;
 									case "Singapore":
-										shipmentFee = (totalPriceBeforeShipmentFee >= 300) ? 0 : 20;
+										shippingFeeAmount.innerHTML = (totalPrice >= 300) ? "FREE" : "RM 20";
 										break;
 									case "Brunei":
-										shipmentFee = (totalPriceBeforeShipmentFee >= 300) ? 0 : 25;
+										shippingFeeAmount.innerHTML = (totalPrice >= 300) ? "FREE" : "RM 25";
 										break;
 									default:
 										shippingFeeAmount.innerHTML = "(Pending ship area)";
@@ -106,20 +105,7 @@ $this->params['breadcrumbs'][] = $this->title;
 										break;
 								}
 								
-								var totalPrice = "";
-								if (shipmentFee) {
-									shippingFeeAmount.innerHTML = "<?php echo $model->symbol ?> " + shipmentFee.toFixed(2);
-									totalPrice = eval(totalPriceBeforeShipmentFee + shipmentFee).toFixed(2);
-								} else if (shipmentFee === 0) {
-									shippingFeeAmount.innerHTML = "Free Shipping";
-									totalPrice = totalPriceBeforeShipmentFee;
-								}
-								
-								if (totalPriceAmount) {
-									totalPriceAmount.innerHTML = "<?php echo $model->symbol ?> " + eval(totalPrice || totalPriceBeforeShipmentFee).toFixed(2);
-								} else {
-									console.warn("shippingFeeAmount field not found");
-								}
+								// TODO: add handling to total price, tired now.. continue next time
 							}
 						};
 						
@@ -151,7 +137,6 @@ $this->params['breadcrumbs'][] = $this->title;
 					var promocodeString = document.querySelector(".promocode-string input");
 					var shippingSelect = document.querySelector(".shipment-destination-select");
 					var shippingDestOpt = shippingSelect.options[shippingSelect.selectedIndex];
-					var shippingDestOptValue = shippingDestOpt.value;
 					
 					if (checkoutPurchaseDiv) {
 						if (!shippingFeeAmount) {
@@ -166,7 +151,6 @@ $this->params['breadcrumbs'][] = $this->title;
 								if (shippingFeeAmount.innerHTML == "(Pending ship area)") {
 									alert("Please select ship to area");
 								} else {
-									var nextStepUrl = "";
 									if (promocodeString && promocodeString.value) {
 										// TODO: do promocode validation in backend so that user cant see the promocode available?
 										var promocodeStringValue = promocodeString.value;
@@ -176,28 +160,17 @@ $this->params['breadcrumbs'][] = $this->title;
 										if (promocodeStringValue == "OFF5PC" && <?php echo $quantity; ?> < 2) {
 											errorPromoCode = "OFF5PC only applicable with minimun purchase of  2 quantities of the product";
 										} else if (promocodeStringValue == "GIVEME15" && totalPrice < 100.00) {
-											errorPromoCode = "GIVEME15 only applicable with minimun purchase of  2 quantities of the product";
+											errorPromoCode = "OFF5PC only applicable with minimun purchase of  2 quantities of the product";
 										} else if (promocodeStringValue == "OFF5PC" || promocodeStringValue == "GIVEME15") {
-											nextStepUrl = "?r=site/step3&id=" + <?php echo $id ?> 
+											window.location.search = "?r=site/step3&id=" + <?php echo $id ?> 
 											+ "&quantity=" + <?php echo $quantity ?> 
-											+ "&shippingArea=" + shippingDestOptValue
+											+ "&shippingArea=" + shippingDestOpt
 											+ "&promoCode=" + promocodeStringValue;
-										} else {
-											errorPromoCode = "Invalid promo code";
 										}
 										
 										if (errorPromoCode) {
 											alert(errorPromoCode);
-											promocodeString.select();
 										}
-									} else {
-										nextStepUrl = "?r=site/step3&id=" + <?php echo $id ?> 
-											+ "&quantity=" + <?php echo $quantity ?> 
-											+ "&shippingArea=" + shippingDestOptValue;
-									}
-									
-									if (nextStepUrl) {
-										window.location.search = nextStepUrl;
 									}
 								}
 							};
@@ -210,4 +183,5 @@ $this->params['breadcrumbs'][] = $this->title;
 			</div>
 		</div>
 	</div>
+	-->
 </div>
