@@ -19,14 +19,14 @@ $this->params['breadcrumbs'][] = $this->title;
 			<?php foreach ($dataProvider->models as $model): ?>
 				<div class="col-lg-4 product-item-div">
 					<div class="product-item">
-						<!--<div class="product-img-div"><?php echo "<img class='product-img' src='".$model->images."'/>"; ?></div>-->
+						<div class="product-img-div"><?php echo "<img class='product-img' src='".$model->images."'/>"; ?></div>
 						<div class="product-brand"><?php 
 							$brand = json_decode($model->brand);
 							echo $brand->name; 
 						?></div>
 						<h4 class="product-name"><?php echo $model->name; ?></h4>
-						<div class="product-selling-price"><?php echo $model->symbol.' '.$model->selling_price; ?></div>
-						<div class="product-retail-price"><?php echo $model->symbol.' '.$model->retail_price; ?></div>
+						<div class="product-selling-price"><?php echo $model->symbol.' '.number_format((float)$model->selling_price, 2, ".", ""); ?></div>
+						<div class="product-retail-price"><?php echo $model->symbol.' '.number_format((float)$model->retail_price, 2, ".", ""); ?></div>
 						<div class="product-action">
 							<div class="product-quantity-div">
 								<select class="product-quantity-select">
@@ -62,23 +62,26 @@ $this->params['breadcrumbs'][] = $this->title;
 			<?php endforeach; ?>
 			<script>
 				var productPurchaseDivs = document.getElementsByClassName("product-purchase");
+				if (productPurchaseDivs && productPurchaseDivs.length > 0) {
+					var purchasing = function() {
+						var purchaseBtn = this;
+						var actionDiv = purchaseBtn.parentNode;
+						var quantitySelect = actionDiv.querySelector(".product-quantity-select");
+						var productId = purchaseBtn.id;
+						
+						var quantitySelected = quantitySelect.options[quantitySelect.selectedIndex].value;
+						if (quantitySelected == "QTY") {
+							quantitySelected = 1;
+						}
+						
+						window.location.search = "?r=site/step2&id=" + productId + "&quantity=" + quantitySelected;
+					};
 
-				var purchasing = function() {
-					var purchaseBtn = this;
-					var actionDiv = purchaseBtn.parentNode;
-					var quantitySelect = actionDiv.querySelector(".product-quantity-select");
-					var productId = purchaseBtn.id;
-					
-					var quantitySelected = quantitySelect.options[quantitySelect.selectedIndex].value;
-					if (quantitySelected == "QTY") {
-						quantitySelected = 1;
+					for (var i = 0; i < productPurchaseDivs.length; i++) {
+						productPurchaseDivs[i].addEventListener('click', purchasing, false);
 					}
-					
-					window.location.search = "?r=site/step2&id=" + productId + "&quantity=" + quantitySelected;
-				};
-
-				for (var i = 0; i < productPurchaseDivs.length; i++) {
-					productPurchaseDivs[i].addEventListener('click', purchasing, false);
+				} else {
+					console.warn("productPurchaseDivs not found...");
 				}
 			</script>
 		</div>
