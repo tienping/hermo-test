@@ -81,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
 									if ($promoCode == "OFF5PC" && $quantity >= 2) {
 										$displayCode = $promoCode;
 										$discount = $totalPrice * 0.05;
-									} else if ($promoCode == "GIVEME15" && $totalPrice < 100.00) {
+									} else if ($promoCode == "GIVEME15" && $totalPrice > 100.00) {
 										$displayCode = $promoCode;
 										$discount = 15; 
 									}
