@@ -75,6 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				</div>
 				<script>
 					var shippingSelect = document.querySelector(".shipment-destination-select");
+					shippingSelect.selectedIndex = 0; // re-initiate to handle browser back button
 					var shippingFeeAmount = document.querySelector(".checkout-shipping-fee-amount");
 					var totalPriceAmount = document.querySelector(".checkout-total-price-amount");
 					
@@ -149,9 +150,6 @@ $this->params['breadcrumbs'][] = $this->title;
 					var checkoutPurchaseDiv = document.querySelector(".checkout-purchase");
 					var shippingFeeAmount = document.querySelector(".checkout-shipping-fee-amount");
 					var promocodeString = document.querySelector(".promocode-string input");
-					var shippingSelect = document.querySelector(".shipment-destination-select");
-					var shippingDestOpt = shippingSelect.options[shippingSelect.selectedIndex];
-					var shippingDestOptValue = shippingDestOpt.value;
 					
 					if (checkoutPurchaseDiv) {
 						if (!shippingFeeAmount) {
@@ -162,42 +160,50 @@ $this->params['breadcrumbs'][] = $this->title;
 							var purchasing = function() {
 								var purchaseBtn = this;
 								
+								var shippingSelect = document.querySelector(".shipment-destination-select");
+								var shippingDestOpt = shippingSelect.options[shippingSelect.selectedIndex];
+								var shippingDestOptValue = shippingDestOpt.value;
+								
 								// window.location.search = "?r=site/step3&id=" + productId + "&quantity=" + quantitySelected;
 								if (shippingFeeAmount.innerHTML == "(Pending ship area)") {
 									alert("Please select ship to area");
 								} else {
-									var nextStepUrl = "";
-									if (promocodeString && promocodeString.value) {
-										// TODO: do promocode validation in backend so that user cant see the promocode available?
-										var promocodeStringValue = promocodeString.value;
-										var totalPrice = <?php echo number_format((float)($model->selling_price * $quantity), 2, '.', '') ?>;
-										var errorPromoCode = "";
-										
-										if (promocodeStringValue == "OFF5PC" && <?php echo $quantity; ?> < 2) {
-											errorPromoCode = "OFF5PC only applicable with minimun purchase of  2 quantities of the product";
-										} else if (promocodeStringValue == "GIVEME15" && totalPrice < 100.00) {
-											errorPromoCode = "GIVEME15 only applicable with minimun purchase of  2 quantities of the product";
-										} else if (promocodeStringValue == "OFF5PC" || promocodeStringValue == "GIVEME15") {
-											nextStepUrl = "?r=site/step3&id=" + <?php echo $id ?> 
-											+ "&quantity=" + <?php echo $quantity ?> 
-											+ "&shippingArea=" + shippingDestOptValue
-											+ "&promoCode=" + promocodeStringValue;
-										} else {
-											errorPromoCode = "Invalid promo code";
-										}
-										
-										if (errorPromoCode) {
-											alert(errorPromoCode);
-											promocodeString.select();
-										}
+									if (shippingDestOptValue == "Country") {
+										alert("Invalid shipping area, please re-enter.");
 									} else {
-										nextStepUrl = "?r=site/step3&id=" + <?php echo $id ?> 
-											+ "&quantity=" + <?php echo $quantity ?> 
-											+ "&shippingArea=" + shippingDestOptValue;
-									}
-									
-									if (nextStepUrl) {
-										window.location.search = nextStepUrl;
+										var nextStepUrl = "";
+										if (promocodeString && promocodeString.value) {
+											// TODO: do promocode validation in backend so that user cant see the promocode available?
+											var promocodeStringValue = promocodeString.value;
+											var totalPrice = <?php echo number_format((float)($model->selling_price * $quantity), 2, '.', '') ?>;
+											var errorPromoCode = "";
+											
+											if (promocodeStringValue == "OFF5PC" && <?php echo $quantity; ?> < 2) {
+												errorPromoCode = "OFF5PC only applicable with minimun purchase of  2 quantities of the product";
+											} else if (promocodeStringValue == "GIVEME15" && totalPrice < 100.00) {
+												errorPromoCode = "GIVEME15 only applicable with minimun purchase of  2 quantities of the product";
+											} else if (promocodeStringValue == "OFF5PC" || promocodeStringValue == "GIVEME15") {
+												nextStepUrl = "?r=site/step3&id=" + <?php echo $id ?> 
+												+ "&quantity=" + <?php echo $quantity ?> 
+												+ "&shippingArea=" + shippingDestOptValue
+												+ "&promoCode=" + promocodeStringValue;
+											} else {
+												errorPromoCode = "Invalid promo code";
+											}
+											
+											if (errorPromoCode) {
+												alert(errorPromoCode);
+												promocodeString.select();
+											}
+										} else {
+											nextStepUrl = "?r=site/step3&id=" + <?php echo $id ?> 
+												+ "&quantity=" + <?php echo $quantity ?> 
+												+ "&shippingArea=" + shippingDestOptValue;
+										}
+										
+										if (nextStepUrl) {
+											window.location.search = nextStepUrl;
+										}
 									}
 								}
 							};
