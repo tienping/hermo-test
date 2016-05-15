@@ -8,12 +8,24 @@ use yii\helpers\Url;
 $this->title = 'Step 1';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-index">
+<div class="site-index" ng-app="HermoApp">
 
     <div class="">
         <p class="lead">Simple Shopping App - Step 1</p>
     </div>
-
+	
+	<div class="banner" ng-controller="bannerController">
+		<div class="banner-container" ng-init="getCarouselItems()">
+			<img id="banner-loading-image" src="images/loading-horizontal.gif">
+			<ul rn-carousel="" rn-carousel-auto-slide="5" rn-carousel-transition="slide" rn-carousel-duration="500" rn-swipe-disabled="false" rn-carousel-index="carouselIndex" class="banner-image">
+				<li ng-repeat="bannerImage in bannerImages">
+					<img ng-src="{{ bannerImage.image }}">
+				</li>
+			</ul>
+			<div rn-carousel-indicators ng-if="bannerImages.length > 1" slides="bannerImages" rn-carousel-index="carouselIndex"></div>
+		</div>
+	</div>
+	
     <div class="body-content">
 		<div class="row product-listing">
 			<?php foreach ($dataProvider->models as $model): ?>

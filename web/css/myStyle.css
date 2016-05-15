@@ -1,3 +1,33 @@
+/* banner */
+.banner {
+	padding-bottom: 40px;
+	background-color: #F5F5F5;
+}
+
+.banner-container {
+	height: 250px;
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.banner-container  ul {
+	height: 100%;
+}
+
+.banner-container li img {
+	pointer-events: none;
+}
+
+.banner-container img {
+	height: 100%;
+	max-width: 100%;
+}
+
+div.rn-carousel-indicator span.active {
+	color: orange;
+}
+
 /* product listing page */
 .product-item-div {
 	text-align: center;
@@ -138,8 +168,6 @@
 	font-weight: bold;
 }
 
-
-
 .checkout-details-div {
 	padding: 15px;
 	height: 300px;
@@ -156,7 +184,7 @@
 .shipment-label,
 .promocode-label {
 	width: 120px;
-    display: inline-block;
+	display: inline-block;
 }
 
 .checkout-action {
