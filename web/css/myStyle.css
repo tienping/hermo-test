@@ -28,6 +28,17 @@ div.rn-carousel-indicator span.active {
 	color: orange;
 }
 
+/* sorting */
+.sort-by-div {
+	text-align: right;
+	padding: 20px 20px 10px 10px;
+	font-size: large;
+}
+
+.sort-by-div .sort-by-select {
+	padding: 5px;
+}
+
 /* product listing page */
 .product-item-div {
 	text-align: center;
@@ -36,11 +47,25 @@ div.rn-carousel-indicator span.active {
 .product-item-div .product-item {
 	margin: 15px;
 	padding: 15px;
-	border: 1px solid black;
+	border: 2px solid black;
 }
 
 .product-item-div .product-item div {
 	margin-buttom: 5px;
+}
+
+.discount-tag {
+	height: 46px;
+	width: 46px;
+	top: 8px;
+	left: 18px;
+	position: absolute;
+	padding: 12px 8px;
+	border-radius: 30px;
+	color: white;
+	background-color: #FC4141;
+	border: 0.5px solid black;
+	font-size: larger;
 }
 
 .product-img-div {

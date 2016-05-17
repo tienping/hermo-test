@@ -58,13 +58,19 @@ class SiteController extends Controller
 		return $this->render('index', []);
 	}
 	
-	public function actionStep1() {
+	public function actionStep1($field = "name", $order = "ASC") {
 		$searchModel = new ProductSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		
+		$params = Yii::$app->request->queryParams;
+		$params['field'] = $field;
+		$params['order'] = ($order == 'ASC') ? SORT_ASC : SORT_DESC;
+		
+		$dataProvider = $searchModel->search($params);
 		
 		return $this->render('step1', [
 			'searchModel' => $searchModel,
-			'dataProvider' => $dataProvider
+			'dataProvider' => $dataProvider,
+			'params' => $params
 		]);
 	}
 	
