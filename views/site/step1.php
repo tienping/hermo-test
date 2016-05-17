@@ -33,12 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
 		<span class="sort-by-select-span">
 			<select class="sort-by-select">
 				<option>Select</option>
-				<option field="name" order="ASC">Product Name Ascending</option>
-				<option field="name" order="DESC">Product Name Descending</option>
-				<option field="selling_price" order="ASC">Selling Price Ascending</option>
-				<option field="selling_price" order="DESC">Selling Price Descending</option>
-				<option field="discount_rate" order="ASC">Discount Rate Ascending</option>
-				<option field="discount_rate" order="DESC">Discount Rate Descending</option>
+				<option field="name" order="ASC">Product Name [A to Z]</option>
+				<option field="name" order="DESC">Product Name [Z to A]</option>
+				<option field="selling_price" order="ASC">Selling Price [Low to High]</option>
+				<option field="selling_price" order="DESC">Selling Price [High to Low]</option>
+				<option field="discount_rate" order="ASC">Discount Rate [Low to High]</option>
+				<option field="discount_rate" order="DESC">Discount Rate [High to Low]</option>
 			</select>
 		</span>
 		<script>

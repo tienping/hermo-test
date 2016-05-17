@@ -80,6 +80,7 @@ div.rn-carousel-indicator span.active {
 }
 
 .product-item  .product-brand {
+	margin-top: 10px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -88,6 +89,7 @@ div.rn-carousel-indicator span.active {
 }
 
 .product-item  .product-name {
+	margin-top: 2px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -98,14 +100,16 @@ div.rn-carousel-indicator span.active {
 	font-size: 21px;
 	font-weight: bold;
 	color: #ff0b39;
-	margin-bottom: 0.25rem;
+	margin-top: 1.0rem;
+	margin-bottom: 0px;
 }
 
 .product-item .product-retail-price {
 	font-size: 14px;
 	color: #5f0549;
 	text-decoration: line-through;
-	margin-bottom: 0;
+	margin-top: 0px;
+	margin-bottom: 1.5rem;
 }
 
 .product-item .product-action {
