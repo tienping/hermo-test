@@ -31,8 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						</div>
 						<div class="summary-product-details-div">
 							<h4 class="summary-product-brand"><?php 
-								$brand = json_decode($model->brand);
-								echo $brand->name; 
+								echo $model->brand; 
 							?></h4>
 							<div class="summary-product-name"><?php echo $model->name; ?></div>
 						</div>

@@ -1,3 +1,44 @@
+/* banner */
+.banner {
+	padding-bottom: 40px;
+	background-color: #F5F5F5;
+}
+
+.banner-container {
+	height: 250px;
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.banner-container  ul {
+	height: 100%;
+}
+
+.banner-container li img {
+	pointer-events: none;
+}
+
+.banner-container img {
+	height: 100%;
+	max-width: 100%;
+}
+
+div.rn-carousel-indicator span.active {
+	color: orange;
+}
+
+/* sorting */
+.sort-by-div {
+	text-align: right;
+	padding: 20px 20px 10px 10px;
+	font-size: large;
+}
+
+.sort-by-div .sort-by-select {
+	padding: 5px;
+}
+
 /* product listing page */
 .product-item-div {
 	text-align: center;
@@ -6,11 +47,25 @@
 .product-item-div .product-item {
 	margin: 15px;
 	padding: 15px;
-	border: 1px solid black;
+	border: 2px solid black;
 }
 
 .product-item-div .product-item div {
 	margin-buttom: 5px;
+}
+
+.discount-tag {
+	height: 46px;
+	width: 46px;
+	top: 8px;
+	left: 18px;
+	position: absolute;
+	padding: 12px 8px;
+	border-radius: 30px;
+	color: white;
+	background-color: #FC4141;
+	border: 0.5px solid black;
+	font-size: larger;
 }
 
 .product-img-div {
@@ -25,6 +80,7 @@
 }
 
 .product-item  .product-brand {
+	margin-top: 10px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -33,6 +89,7 @@
 }
 
 .product-item  .product-name {
+	margin-top: 2px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -43,14 +100,16 @@
 	font-size: 21px;
 	font-weight: bold;
 	color: #ff0b39;
-	margin-bottom: 0.25rem;
+	margin-top: 1.0rem;
+	margin-bottom: 0px;
 }
 
 .product-item .product-retail-price {
 	font-size: 14px;
 	color: #5f0549;
 	text-decoration: line-through;
-	margin-bottom: 0;
+	margin-top: 0px;
+	margin-bottom: 1.5rem;
 }
 
 .product-item .product-action {
@@ -138,8 +197,6 @@
 	font-weight: bold;
 }
 
-
-
 .checkout-details-div {
 	padding: 15px;
 	height: 300px;
@@ -156,7 +213,7 @@
 .shipment-label,
 .promocode-label {
 	width: 120px;
-    display: inline-block;
+	display: inline-block;
 }
 
 .checkout-action {
