@@ -42,12 +42,15 @@ class ProductSearch extends Product
     public function search($params) {
         $query = Product::find();
 
-        // add conditions that should always apply here
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-			'sort'=> ['defaultOrder' => [$params['field']=>$params['order']]]
-        ]);
+        if (array_key_exists('field', $params) && array_key_exists('order', $params)) {
+			$dataProvider = new ActiveDataProvider([
+				'query' => $query,
+				'sort'=> ['defaultOrder' => [$params['field']=>$params['order']]]
+			]);
+		} else {
+			$dataProvider = new ActiveDataProvider(['query' => $query]);
+		}
+		
 
         $this->load($params);
 
