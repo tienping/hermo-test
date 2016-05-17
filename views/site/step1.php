@@ -26,15 +26,50 @@ $this->params['breadcrumbs'][] = $this->title;
 		</div>
 	</div>
 	
+	<div class="sort-by-div">
+		<span class="sort-by-label">
+			Sort By: 
+		</span>
+		<span class="sort-by-select-span">
+			<select class="sort-by-select">
+				<option>Select</option>
+				<option field="name" order="ASC">Product Name Ascending</option>
+				<option field="name" order="DESC">Product Name Descending</option>
+				<option field="selling_price" order="ASC">Selling Price Ascending</option>
+				<option field="selling_price" order="DESC">Selling Price Descending</option>
+				<option field="discount_rate" order="ASC">Discount Rate Ascending</option>
+				<option field="discount_rate" order="DESC">Discount Rate Descending</option>
+			</select>
+		</span>
+		<script>
+			var sortingSelect = document.querySelector(".sort-by-select");
+			sortingSelect.selectedIndex = 0;
+			var sortingAction = function sortingAction() {
+				var selectedSorting = sortingSelect.options[sortingSelect.selectedIndex];
+				var selectedField = selectedSorting.getAttribute("field");
+				var selectedOrder = selectedSorting.getAttribute("order");
+				
+				if (selectedField && selectedOrder) {
+					window.location.search = "?r=site/step1"
+						+ "&field=" + selectedField
+						+ "&order=" + selectedOrder;
+				}
+			};
+			sortingSelect.onchange = sortingAction;
+		</script>
+	</div>
+	
     <div class="body-content">
 		<div class="row product-listing">
 			<?php foreach ($dataProvider->models as $model): ?>
 				<div class="col-lg-4 product-item-div">
 					<div class="product-item">
+						<div class="discount-tag">
+							<?php echo $model->discount_rate ?>%
+						</div>
 						<div class="product-img-div"><?php echo "<img class='product-img' src='".$model->images."'/>"; ?></div>
 						<div class="product-brand"><?php 
-							$brand = json_decode($model->brand);
-							echo $brand->name; 
+							echo $model->brand; 
 						?></div>
 						<h4 class="product-name"><?php echo $model->name; ?></h4>
 						<div class="product-selling-price"><?php echo $model->symbol.' '.number_format((float)$model->selling_price, 2, ".", ""); ?></div>

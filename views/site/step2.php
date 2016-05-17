@@ -24,8 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						</div>
 						<div class="checkout-product-details-div">
 							<h4 class="checkout-brand"><?php 
-								$brand = json_decode($model->brand);
-								echo $brand->name; 
+								echo $model->brand; 
 							?></h4>
 							<div class="checkout-name"><?php echo $model->name; ?></div>
 							<div class="checkout-selling-price">
@@ -164,7 +163,6 @@ $this->params['breadcrumbs'][] = $this->title;
 								var shippingDestOpt = shippingSelect.options[shippingSelect.selectedIndex];
 								var shippingDestOptValue = shippingDestOpt.value;
 								
-								// window.location.search = "?r=site/step3&id=" + productId + "&quantity=" + quantitySelected;
 								if (shippingFeeAmount.innerHTML == "(Pending ship area)") {
 									alert("Please select ship to area");
 								} else {
